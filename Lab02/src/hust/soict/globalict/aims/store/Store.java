@@ -1,37 +1,27 @@
 package hust.soict.globalict.aims.store;
-import hust.soict.globalict.aims.disc.DigitalVideoDisc;
+import java.util.ArrayList;
+import hust.soict.globalict.aims.media.Media;
 
 public class Store {
-    private DigitalVideoDisc itemsInStore[] = new DigitalVideoDisc[100];
-    private int qtyInStore = 0;
+    private ArrayList<Media> itemsInStore = new ArrayList<Media>();
 
-    public void addDVD(DigitalVideoDisc dvd) {
-        if (qtyInStore < itemsInStore.length) {
-            itemsInStore[qtyInStore] = dvd;
-            qtyInStore++;
-            System.out.println("The DVD " + dvd.getTitle() + " has been added to the store.");
+    public void addMedia(Media media) { 
+        if (!itemsInStore.contains(media)) {
+            itemsInStore.add(media);
+            System.out.println("The media " + media.getTitle() + " has been added to the store.");
         } 
         else {
-            System.out.println("The store is full.");
+            System.out.println("The media " + media.getTitle() + " is already in the store.");
         }
     }
 
-    public void removeDVD(DigitalVideoDisc dvd) {
-        boolean found = false;
-        for (int i = 0; i < qtyInStore; i++) {
-            if (itemsInStore[i].equals(dvd)) {
-                found = true;
-                for (int j = i; j < qtyInStore - 1; j++) {
-                    itemsInStore[j] = itemsInStore[j + 1];
-                }
-                itemsInStore[qtyInStore - 1] = null;
-                qtyInStore--;
-                System.out.println("The DVD " + dvd.getTitle() + " has been removed from the store.");
-                break;
-            }
-        }
-        if (!found) {
-            System.out.println("The DVD is not in the store.");
+    public void removeMedia(Media media) { 
+        if (itemsInStore.contains(media)) {
+            itemsInStore.remove(media);
+            System.out.println("The media " + media.getTitle() + " has been removed from the store.");
+        } 
+        else {
+            System.out.println("The media " + media.getTitle() + " is not in the store.");
         }
     }
 }
