@@ -65,27 +65,24 @@ public class Cart {
         }
     }
 
-    public void searchByTitle(String title) {
-        boolean found = false;
+    public Media searchByTitle(String title) {
         for (Media media : itemsOrdered) {
             if (media.getTitle().equalsIgnoreCase(title)) {
                 System.out.println("Found: " + media.getTitle());
-                found = true;
-                break;
+                return media;
             }
         }
-        if (!found) {
-            System.out.println("No match found for title: " + title);
-        }
+        System.out.println("No match found for title: " + title);
+        return null;
     }
 
     public void sortByTitleCost() {
         java.util.Collections.sort(itemsOrdered, Media.COMPARE_BY_TITLE_COST);
-        System.out.println("Sorted");
+        System.out.println("Sorted by title cost.");
     }
 
     public void sortByCostTitle() {
         java.util.Collections.sort(itemsOrdered, Media.COMPARE_BY_COST_TITLE);
-        System.out.println("Đã sắp xếp giỏ hàng theo Giá -> Tên.");
+        System.out.println("Sorted by cost title.");
     }
 }
