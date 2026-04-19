@@ -1,0 +1,35 @@
+1. The abstract Media class should implement the Comparable<Media> interface.
+2. We should implement the compareTo() method directly inside the Media class.
+For example, Title Cost ordering:
+@Override
+public int compareTo(Media other) {
+	int titleComparison = this.getTitle().compareTo(other.getTitle());
+	if (titleComparison != 0) {
+        	return titleComparison;
+    	} 
+	else {
+        	return Float.compare(this.getCost(), other.getCost());
+    	}
+}
+3. We cannot have two ordering rules because the Comparable interface is designed to define the single, default ordering for a class.
+4. We can modify our code like this:
+@Override
+public int compareTo(Media other) {
+	if (other instanceof DigitalVideoDisc) {
+		DigitalVideoDisc otherDVD = (DigitalVideoDisc) other;
+        
+        	int titleDiff = this.getTitle().compareTo(otherDVD.getTitle());
+        	if (titleDiff != 0) {
+			return titleDiff;
+        	}
+
+        	int lengthDiff = Integer.compare(otherDVD.getLength(), this.getLength()); // Note the reversed order for decreasing
+        	if (lengthDiff != 0) {
+			return lengthDiff;
+		}
+        
+        	return Float.compare(this.getCost(), otherDVD.getCost());
+	}
+    
+    return super.compareTo(other); 
+}
