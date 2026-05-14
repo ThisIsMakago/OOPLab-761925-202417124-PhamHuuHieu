@@ -3,6 +3,8 @@ package hust.soict.globalict.aims.screen.manager;
 import hust.soict.globalict.aims.media.Media;
 import hust.soict.globalict.aims.media.Playable;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
  
 public class MediaStore extends JPanel {
@@ -24,6 +26,23 @@ public class MediaStore extends JPanel {
  
         if (media instanceof Playable) {
             JButton playButton = new JButton("Play");
+
+            playButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    JDialog dialog = new JDialog();
+                    dialog.setTitle("Media Player");
+                    dialog.setSize(300, 150);
+                    dialog.setLocationRelativeTo(null);
+
+                    JLabel label = new JLabel("Playing: " + media.getTitle());
+                    label.setHorizontalAlignment(SwingConstants.CENTER);
+                    label.setFont(new Font("Arial", Font.BOLD, 16));
+
+                    dialog.add(label);
+                    dialog.setVisible(true);
+                }
+            });
+
             container.add(playButton);
         }
  
