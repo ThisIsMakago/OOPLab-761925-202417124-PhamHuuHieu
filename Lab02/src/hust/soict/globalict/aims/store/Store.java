@@ -35,4 +35,8 @@ public class Store {
         System.out.println("No match found for title: " + title);
         return null;
     }
+
+    public java.util.ArrayList<hust.soict.globalict.aims.media.Media> getItemsInStore() {
+        return itemsInStore;
+    }
 }
