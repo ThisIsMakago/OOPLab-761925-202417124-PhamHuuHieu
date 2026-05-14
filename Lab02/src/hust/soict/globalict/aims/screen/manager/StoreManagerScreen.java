@@ -1,11 +1,11 @@
 package hust.soict.globalict.aims.screen.manager;
  
-import java.awt.*;
-import java.util.ArrayList;
-import javax.swing.*;
 import hust.soict.globalict.aims.media.DigitalVideoDisc;
 import hust.soict.globalict.aims.media.Media;
 import hust.soict.globalict.aims.store.Store;
+import java.awt.*;
+import java.util.ArrayList;
+import javax.swing.*;
  
 public class StoreManagerScreen extends JFrame {
     private Store store;
@@ -21,14 +21,34 @@ public class StoreManagerScreen extends JFrame {
     JMenuBar createMenuBar() {
         JMenu menu = new JMenu("Options");
  
-        menu.add(new JMenuItem("View store"));
+        JMenuItem viewStoreMenu = new JMenuItem("View store");
+        menu.add(viewStoreMenu);
  
         JMenu smUpdateStore = new JMenu("Update Store");
-        smUpdateStore.add(new JMenuItem("Add Book"));
-        smUpdateStore.add(new JMenuItem("Add CD"));
-        smUpdateStore.add(new JMenuItem("Add DVD"));
+        
+        JMenuItem addBookMenu = new JMenuItem("Add Book");
+        addBookMenu.addActionListener(e -> {
+            new AddBookToStoreScreen(store);
+            dispose();
+        });
+
+        JMenuItem addCDMenu = new JMenuItem("Add CD");
+        addCDMenu.addActionListener(e -> {
+            new AddCompactDiscToStoreScreen(store);
+            dispose();
+        });
+
+        JMenuItem addDVDMenu = new JMenuItem("Add DVD");
+        addDVDMenu.addActionListener(e -> {
+            new AddDigitalVideoDiscToStoreScreen(store); 
+            dispose();
+        });
+
+        smUpdateStore.add(addBookMenu);
+        smUpdateStore.add(addCDMenu);
+        smUpdateStore.add(addDVDMenu);
         menu.add(smUpdateStore);
- 
+
         JMenuBar menuBar = new JMenuBar();
         menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
         menuBar.add(menu);
