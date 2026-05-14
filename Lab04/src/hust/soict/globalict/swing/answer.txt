@@ -1,9 +1,16 @@
-1. Compare the top-level containers in Swing and AWT: - AWT uses heavy-weight top-level containers like Frame, Dialog, and Applet. 
-They rely heavily on the underlying operating system's GUI toolkit. - Swing uses light-weight top-level containers like JFrame, JDialog, and JApplet. 
-In Swing, components are not added directly to the top-level container, but must be added to a "content-pane" (a Container object) managed by the top-level container. 
-2. Compare the class name of components in AWT and Swing: - AWT components: Button, Label, TextField, TextArea, Panel... - Swing components: Prepended with a 'J' to distinguish them from AWT. 
-Examples: JButton, JLabel, JTextField, JTextArea, JPanel... 
-3. Compare the event-handling of Swing and AWT applications: - The event-handling mechanism (Event Listeners, ActionEvent, ActionCommand) is largely the same in both AWT and Swing. 
-Both use the java.awt.event package for event delegation. 
-4. Appearance comparison: - AWT applications take on the look and feel of the host operating system because they use OS-native GUI peers. - Swing applications are drawn entirely by Java, so they look consistent across all platforms. 
-They also support Pluggable Look-and-Feel (PLAF), allowing the developer to change the UI theme dynamically.
+1. Compare the top-level containers in Swing and AWT: 
+    - AWT uses heavy-weight top-level containers like Frame, Dialog, and Applet. 
+    They rely heavily on the underlying operating system's GUI toolkit. 
+    - Swing uses light-weight top-level containers like JFrame, JDialog, and JApplet. 
+    In Swing, components are not added directly to the top-level container, but must be added to a "content-pane" (a Container object) managed by the top-level container. 
+2. Compare the class name of components in AWT and Swing: 
+    - AWT components: Button, Label, TextField, TextArea, Panel... 
+    - Swing components: Prepended with a 'J' to distinguish them from AWT. 
+    Examples: JButton, JLabel, JTextField, JTextArea, JPanel... 
+3. Compare the event-handling of Swing and AWT applications: 
+    - The event-handling mechanism (Event Listeners, ActionEvent, ActionCommand) is largely the same in both AWT and Swing. 
+    Both use the java.awt.event package for event delegation. 
+4. Appearance comparison: 
+    - AWT applications take on the look and feel of the host operating system because they use OS-native GUI peers. 
+    - Swing applications are drawn entirely by Java, so they look consistent across all platforms. 
+    They also support Pluggable Look-and-Feel (PLAF), allowing the developer to change the UI theme dynamically.
