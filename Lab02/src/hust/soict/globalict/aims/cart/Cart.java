@@ -4,7 +4,7 @@ import hust.soict.globalict.aims.media.Media;
 
 public class Cart {
     public static final int MAX_NUMBERS_ORDERED = 20;
-    private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
+    private javafx.collections.ObservableList<Media> itemsOrdered = javafx.collections.FXCollections.observableArrayList();
 
     public void addMedia(Media media) {
         if (itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
@@ -84,5 +84,9 @@ public class Cart {
     public void sortByCostTitle() {
         java.util.Collections.sort(itemsOrdered, Media.COMPARE_BY_COST_TITLE);
         System.out.println("Sorted by cost title.");
+    }
+
+    public javafx.collections.ObservableList<Media> getItemsOrdered() {
+        return itemsOrdered;
     }
 }

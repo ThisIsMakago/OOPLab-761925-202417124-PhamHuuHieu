@@ -1,6 +1,7 @@
 package hust.soict.globalict.aims.screen.customer.controller;
 
 import hust.soict.globalict.aims.store.Store;
+import hust.soict.globalict.aims.cart.Cart;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,9 +16,11 @@ public class ViewStoreController {
     private GridPane gridPane;
 
     private Store store;
+    private Cart cart;
 
-    public ViewStoreController(Store store) {
+    public ViewStoreController(Store store, Cart cart) {
         this.store = store;
+        this.cart = cart;
     }
 
     @FXML
