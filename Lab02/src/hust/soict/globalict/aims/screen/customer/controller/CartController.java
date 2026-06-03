@@ -22,22 +22,24 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.collections.transformation.FilteredList;
+import javafx.scene.control.Toggle;
 
 public class CartController {
 
     private Cart cart;
     private Store store;
 
+    private FilteredList<Media> filteredList;
+
     @FXML private TableView<Media> tblMedia;
     @FXML private TableColumn<Media, Integer> colMediaId;
     @FXML private TableColumn<Media, String> colMediaTitle;
     @FXML private TableColumn<Media, String> colMediaCategory;
     @FXML private TableColumn<Media, Float> colMediaCost;
-
     @FXML private Button btnPlay;
     @FXML private Button btnRemove;
     @FXML private Label costLabel;
-
     @FXML private RadioButton radioBtnFilterId;
     @FXML private RadioButton radioBtnFilterTitle;
     @FXML private TextField tfFilter;
@@ -56,8 +58,23 @@ public class CartController {
         colMediaCost.setCellValueFactory(new PropertyValueFactory<Media, Float>("cost"));
         
         if(cart.getItemsOrdered() != null) {
-            tblMedia.setItems(cart.getItemsOrdered());
+            filteredList = new FilteredList<>(cart.getItemsOrdered(), p -> true);
+            tblMedia.setItems(filteredList);
         }
+
+        tfFilter.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                showFilteredMedia(newValue);
+            }
+        });
+
+        filterCategory.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+                showFilteredMedia(tfFilter.getText());
+            }
+        });
 
         btnPlay.setVisible(false);
         btnRemove.setVisible(false);
@@ -136,5 +153,27 @@ public class CartController {
     
     public void updateCost() {
         costLabel.setText(cart.totalCost() + " $");
+    }
+
+    void showFilteredMedia(String newValue) {
+        if (newValue == null || newValue.isEmpty()) {
+            filteredList.setPredicate(media -> true);
+        } 
+        else {
+            filteredList.setPredicate(media -> {
+                if (radioBtnFilterId.isSelected()) {
+                    try {
+                        int id = Integer.parseInt(newValue);
+                        return media.getId() == id;
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                } 
+                else if (radioBtnFilterTitle.isSelected()) {
+                    return media.getTitle().toLowerCase().contains(newValue.toLowerCase());
+                }
+                return true;
+            });
+        }
     }
 }
