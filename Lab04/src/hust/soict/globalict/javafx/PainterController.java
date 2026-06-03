@@ -14,13 +14,23 @@ public class PainterController {
     private Pane drawingAreaPane;
 
     @FXML
+    private RadioButton penRadio;
+
+    @FXML
+    private RadioButton eraserRadio;
+
+    @FXML
     void clearButtonPressed(ActionEvent event) {
         drawingAreaPane.getChildren().clear();
     }
 
     @FXML
     void drawingAreaMouseDragged(MouseEvent event) {
-        Circle newCircle = new Circle(event.getX(), event.getY(), 4, Color.BLACK);
-        drawingAreaPane.getChildren().add(newCircle);
+        if (event.getX() >= 0 && event.getY() >= 0) {
+            Color inkColor = penRadio.isSelected() ? Color.BLACK : Color.WHITE;
+            
+            Circle newCircle = new Circle(event.getX(), event.getY(), 4, inkColor);
+            drawingAreaPane.getChildren().add(newCircle);
+        }
     }
 }
