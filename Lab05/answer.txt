@@ -1,0 +1,7 @@
+If we throw a PlayerException in the play() method but do not use a try-catch block to handle it in the caller method, the following will happen:
+
+1. Compilation Error: Because PlayerException is a "checked exception" (it inherits from Exception, not RuntimeException), the Java compiler will force us to either catch it or declare it in the method signature using "throws". 
+    If we don't do either, the code will not compile.
+2. Program Crash: If the exception is somehow thrown and not caught at runtime, it will propagate up the call stack. 
+    Eventually, it will crash the application (or the current executing thread) and print an stack trace to the console. 
+3. Bad User Experience: In a GUI application like JavaFX, an unhandled exception might cause the button click event to fail silently or freeze, leaving the user confused because there is no dialog box or warning message shown to them.
