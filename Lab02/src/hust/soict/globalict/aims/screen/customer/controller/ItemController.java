@@ -3,6 +3,7 @@ package hust.soict.globalict.aims.screen.customer.controller;
 import hust.soict.globalict.aims.media.Media;
 import hust.soict.globalict.aims.media.Playable;
 import hust.soict.globalict.aims.cart.Cart;
+import hust.soict.globalict.aims.exception.PlayerException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -32,18 +33,28 @@ public class ItemController {
     }
 
     @FXML
-    void btnAddToCartClicked(ActionEvent event) {
+    void btnAddToCartPressed(ActionEvent event) {
         cart.addMedia(media);
         System.out.println("Added " + media.getTitle() + " to cart!");
     }
 
     @FXML
-    void btnPlayClicked(ActionEvent event) {
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
-        alert.setTitle("Playing");
-        alert.setHeaderText("You are playing:");
-        alert.setContentText(media.getTitle() + " - " + media.getCost() + " $");
-        alert.showAndWait();
+    void btnPlayPressed(ActionEvent event) {
+        try {
+            ((Playable) media).play();
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+            alert.setTitle("Playing");
+            alert.setHeaderText("You are playing:");
+            alert.setContentText(media.getTitle() + " - " + media.getCost() + " $");
+            alert.showAndWait();
+        } catch (PlayerException e) {
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+            alert.setHeaderText("Error Playing Media");
+            alert.setTitle("Illegal Media Length");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            e.printStackTrace();
+        }
     }
 
     public void setData(Media media) {

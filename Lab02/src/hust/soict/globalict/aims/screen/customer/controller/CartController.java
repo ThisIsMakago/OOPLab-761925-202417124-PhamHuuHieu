@@ -3,6 +3,7 @@ package hust.soict.globalict.aims.screen.customer.controller;
 import java.io.IOException;
 
 import hust.soict.globalict.aims.cart.Cart;
+import hust.soict.globalict.aims.exception.PlayerException;
 import hust.soict.globalict.aims.media.Media;
 import hust.soict.globalict.aims.media.Playable;
 import hust.soict.globalict.aims.store.Store;
@@ -112,12 +113,20 @@ public class CartController {
     @FXML
     void btnPlayPressed(ActionEvent event) {
         Media media = tblMedia.getSelectionModel().getSelectedItem();
-        if (media != null) {
+        try {
+            ((Playable) media).play();
             javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
             alert.setTitle("Playing");
             alert.setHeaderText("You are playing:");
             alert.setContentText(media.getTitle() + " - " + media.getCost() + " $");
             alert.showAndWait();
+        } catch (PlayerException e) {
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+            alert.setTitle("Error Playing Media");
+            alert.setHeaderText("Illegal Media Length");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            e.printStackTrace();
         }
     }
 
